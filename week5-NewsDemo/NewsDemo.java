@@ -13,9 +13,18 @@ public class NewsDemo {
 		bbc.addListener(new MyListener());
 		
 		//TODO 请在这里再加入一个Listener
-        bbc.addListener((NewsEvent e) -> {
-		    if( e.level>5) System.out.println("warning :");
-		    System.out.println("please note," + e.text + " happed! The source is from " + e.source);
+        // 用 lambda 来实现
+        /* bbc.addListener((NewsEvent e) -> { */
+		/*     if( e.level>5) System.out.println("warning :"); */
+		/*     System.out.println("please note," + e.text + " happed! The source is from " + e.source); */
+        /* }); */
+
+        // 用匿名类来实现
+        bbc.addListener(new Listener() {
+            public void newsArrived(NewsEvent e) {
+                if( e.level>5) System.out.println("warning :");
+                System.out.println("please note," + e.text + " happed! The source is from " + e.source);
+            }
         });
 		
 		

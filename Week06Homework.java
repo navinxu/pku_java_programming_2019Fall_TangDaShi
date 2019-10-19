@@ -34,6 +34,9 @@ Java的异常是比较独特的，它是程序安全稳定的重要措施。本�
 public class Week06Homework {
     public static void main(String[] args) {
         try {
+            /* Person et = new Person("ET", 10000); */
+            /* et.checkGeneralPersonHeight(-1.50); */
+
             /* Person tim = new Person("Tim", 30); */
             /* tim.checkGeneralPersonHeight(1.75); */
 
@@ -78,10 +81,13 @@ class Person {
     }
 
     public void checkGeneralPersonHeight(double height) throws NumberException {
+        if (height < 0) {
+            throw new NumberException("身高不能小于 0");
+        }
         // 这里的单位是米
         // 0.45 是人类婴儿的正常身高
         // 这里只是打个比方，请勿太认真
-        if (height < 0.45 || height > 2.55) {
+        if (height < 0.40 || height > 2.55) {
             throw new NumberException("身高已经超出正常范围");
         } else {
             throw new NumberException("身高符合正常范围");

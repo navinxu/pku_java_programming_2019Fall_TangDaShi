@@ -30,7 +30,7 @@
 筛法求素数的功能正确（5分）。
 ================================================================*/
 
-public class PrimeAiShi {
+public class Week03PrimeAiShi {
     public static void main(String[] args) {
         // 之所以是 100 + 1，是因为数组以 0 开头，
         // 且求素数的最大数字为 100
@@ -52,7 +52,7 @@ public class PrimeAiShi {
         outer2:
             for (int i = 100; i >= 90; -- i) {
                 max_prime = true;
-                for (int j = 2; j * j < i; ++ j) {
+                for (int j = 2; j * j <= i; ++ j) {
                     if (i % j == 0) {
                         max_prime = false;
                         continue outer2;
@@ -78,8 +78,10 @@ public class PrimeAiShi {
                 if (k == 0)
                     k = i;
 
-                if (i != j && i % j == 0)
+                if (i != j && i % j == 0 && prime_flags[i] == true) {
                     prime_flags[i] = false;
+                    /* System.out.print(j + " "); */
+                }
                 
                 if (i == 100) {
                     // 当 i 迭代到 100 时，
@@ -114,11 +116,13 @@ public class PrimeAiShi {
                     }
                     //System.out.println("\t" + j);
                     // 
+                    /* System.out.print(j + " "); */
                     i = k;
                     k = 0;
                 }
             }
 
+        System.out.println();
         int cnt = 0;
         for (boolean elem : prime_flags) {
             if (elem == true)

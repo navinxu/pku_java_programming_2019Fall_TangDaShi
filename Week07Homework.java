@@ -185,7 +185,7 @@ class Bank {
 
     public void setUpAnNewAccount (Account account) throws Exception{
         if (!this.addNewAccount(account)) {
-            throw new Exception("添加账户失败（原因未知）！");
+            throw new Exception("添加账户失败！");
         } else {
             System.out.println("成功添加账户，账户信息如下：");
             System.out.println("\t\t用户名：" + account.getUserName());
@@ -195,6 +195,15 @@ class Bank {
     }
 
     public boolean addNewAccount(Account account) {
+        if (!this.accounts.isEmpty()) {
+            for (Account elem : this.accounts) {
+                if (elem.getUserName() == account.getUserName()) {
+                    //throw new Exception("用户 " + elem.getUserName() + " 已经存在！");
+                    System.out.println("用户 " + elem.getUserName() + " 已经存在！");
+                    return false;
+                }
+            }
+        }
         return this.accounts.add(account);
     }
 

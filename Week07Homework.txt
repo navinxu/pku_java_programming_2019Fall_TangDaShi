@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 public class Week07Homework {
     public static void main(String[] args) {
-        Bank bank = new Bank("北大银行");
         try {
+            Bank bank = new Bank("北大银行");
             System.out.println("\n======================================\n");
 
-            Account user1 = new Account("user1", "passw1");
-            Account user2 = new Account("user2", "passw2");
-            Account user3 = new Account("user3", "passw3");
-            Account user4 = new Account("user4", "passw4");
-            Account user5 = new Account("user5", "passw5");
+            Account user1 = new Account("user1", "888888");
+            Account user2 = new Account("user2", "888888");
+            Account user3 = new Account("user3", "888888");
+            Account user4 = new Account("user4", "888888");
+            Account user5 = new Account("user5", "888888");
 
             System.out.println("\n======================================\n");
 
@@ -22,11 +22,11 @@ public class Week07Homework {
             System.out.println("\n======================================\n");
 
             // 登录
-            bank.login("user1", "passw1");
-            bank.login("user2", "passw2");
-            bank.login("user3", "passw3");
-            bank.login("user4", "passw4");
-            bank.login("user5", "passw5");
+            bank.login("user1", "888888");
+            bank.login("user2", "888888");
+            bank.login("user3", "888888");
+            bank.login("user4", "888888");
+            bank.login("user5", "888888");
 
             System.out.println("\n======================================\n");
 
@@ -102,9 +102,15 @@ class Account {
 
     public void setPasswd(String passwd) throws Exception {
         if (!passwd.isEmpty() && passwd.length() == 6)
-            this.passwd = passwd;
-        else
+            try {
+                Double.parseDouble(passwd);
+                this.passwd = passwd;
+            } catch (NumberFormatException e) {
+                throw new Exception("密码为六位数字，请重新输入密码！");
+            }
+        else {
             throw new Exception("密码为六位数字，请重新输入密码！");
+        }
     }
 
     public void setIsLogin(boolean isLogin) {
@@ -203,6 +209,9 @@ class Bank {
      * 查询账户就得先登录
      */
     public boolean login(String userName, String passwd) throws Exception {
+        if (this.getAccountsList().isEmpty()) {
+            throw new Exception("没有相关账户！");
+        }
         boolean isLogin = false;
         for (Account account : this.getAccountsList()) {
             if (account.getUserName() == userName) {
@@ -241,6 +250,9 @@ class Bank {
      */
     public void showAccountsList(Account userValidate) throws Exception {
         if (userValidate.getIsLogin()) {
+            if (this.getAccountsList().isEmpty()) {
+                throw new Exception("没有相关账户！");
+            }
             System.out.println("以下是银行所有用户的账户信息：");
             for (Account account : this.getAccountsList()) {
                     System.out.println("\t用户名：" + account.getUserName());

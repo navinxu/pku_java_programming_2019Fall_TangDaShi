@@ -1,7 +1,7 @@
 *.class
 *.swp
 .swp
-Test.*
+Test*.*
 *.jar
 week*
 *.txt

@@ -78,6 +78,13 @@ public class Week10Homework extends JFrame {
 		btnbmi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				height = Double.parseDouble(tfdHeight.getText());
+                // 身高是除数，因此不能为 0
+                // 身高小于 0 是不合符常理的值
+                if (height <= 0.0) {
+                    tfdBMI.setText("null");
+                    tfdNotice.setText("null");
+                    return;
+                }
 				weight = Double.parseDouble(tfdWeight.getText());
 				double bmi = weight / (height * height);
                 // 将小数点精确到一位

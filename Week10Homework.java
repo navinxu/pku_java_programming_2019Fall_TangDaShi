@@ -42,7 +42,59 @@ public class Week10Homework extends JFrame {
 	private double height = 0.0;
 	private JTextField tfdNotice;
 	private JTextPane tpBMIRef;
+	
+	
+	/**
+	 * Check JTextField if numbers and dot
+     * If input one more dot or input an invalid value, it skipped.
+	 */
+	private void checkIfNumberic(JTextField textField) {
+		textField.addKeyListener(new KeyAdapter() {
+	         public void keyTyped(KeyEvent e) {
+	             char c = e.getKeyChar();
+	             if (c == '.') {
+	            	 if (textField.getText().contains(".")) {
+	            		 e.consume();
+	            	 }
+	             }
+	             if (("0123456789.".indexOf(c) < 0 ||
+	                (c == KeyEvent.VK_BACK_SPACE) ||
+	                (c == KeyEvent.VK_DELETE))) {
+	                  e.consume();
+	                }
+	           }
+	         });
+	}
 
+	/**
+	 * Check numeric and dot
+     * Return true means check pass.
+	 */
+	private boolean checkNumericAndDot(JTextField textField) {
+		String s = textField.getText();
+		int index = s.indexOf('.');
+		int lastIndex = s.indexOf('.');
+		boolean okIndex = false;
+		boolean okChar = true;
+		
+		if (index != -1 && lastIndex != -1 && index == lastIndex) {
+			okIndex = true;
+		}
+		
+		if (index == -1 && lastIndex == -1) {
+			okIndex = true;
+		}
+		
+		char[] cArr = s.toCharArray();
+		for (char c : cArr) {
+			if ("0123456789.".indexOf(c) == -1) {
+				okChar = false;
+			}
+		}
+		
+		return okIndex && okChar;
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -73,19 +125,27 @@ public class Week10Homework extends JFrame {
 		tfdWeight.setColumns(10);
 		tfdWeight.setBounds(85, 56, 85, 22);
 		contentPane.add(tfdWeight);
+		
+		checkIfNumberic(tfdHeight);
+		checkIfNumberic(tfdWeight);
 
 		JButton btnbmi = new JButton("开始计算BMI值");
 		btnbmi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				height = Double.parseDouble(tfdHeight.getText());
+				if (!checkNumericAndDot(tfdHeight) || !checkNumericAndDot(tfdWeight)) {
+					height = 0.0;
+					weight = 0.0;
+				} else {
+					height = Double.parseDouble(tfdHeight.getText());
+					weight = Double.parseDouble(tfdWeight.getText());
+				}
                 // 身高是除数，因此不能为 0
                 // 身高小于 0 是不合符常理的值
-                if (height <= 0.0) {
+                if (height <= 0.0 || weight <= 0.0) {
                     tfdBMI.setText("null");
                     tfdNotice.setText("null");
                     return;
                 }
-				weight = Double.parseDouble(tfdWeight.getText());
 				double bmi = weight / (height * height);
                 // 将小数点精确到一位
 				BigDecimal bDecimal = new BigDecimal(bmi).setScale(1, RoundingMode.FLOOR);
@@ -139,4 +199,3 @@ public class Week10Homework extends JFrame {
 		contentPane.add(tpBMIRef);
 	}
 }
-

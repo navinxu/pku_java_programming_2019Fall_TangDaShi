@@ -89,6 +89,7 @@ public class Week10Homework extends JFrame {
 		for (char c : cArr) {
 			if ("0123456789.".indexOf(c) == -1) {
 				okChar = false;
+                break;
 			}
 		}
 		

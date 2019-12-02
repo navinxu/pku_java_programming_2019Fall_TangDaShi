@@ -167,7 +167,7 @@ public class Week10Homework extends JFrame {
 				} else if (d.compareTo(Double.parseDouble("" + 24)) >= 0 && d.compareTo(Double.parseDouble("" + 27.9)) <= 0) {
 					tfdNotice.setText("您的 BMI 值表明您有点超重！");
 				} else {
-					tfdNotice.setText("您的 BMI 值表明您的为肥胖人士！");
+					tfdNotice.setText("您的 BMI 值表明您为肥胖人士！");
 				}
  			}
 		});

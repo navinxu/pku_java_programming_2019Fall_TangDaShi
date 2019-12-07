@@ -1,3 +1,6 @@
+// if Eclipse IDE, and import the "Week11Homework.zip" archive  to the "src" direcotry,please uncomment the below line.
+// package Week11Homework;
+
 /*
  * This file uses UTF-8
  * 
@@ -133,12 +136,6 @@ public class Week11Homework extends JFrame {
 						ex.printStackTrace();
 					}
 				}
-                				
-				if (musicPlayThread != null) {
-                    player.close();
-					musicPlayThread.stop();
-				}
-
 
 				conn = null;
 				System.exit(0);
